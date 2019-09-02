@@ -1,0 +1,16 @@
+.center-element {
+    margin:auto;
+}
+.width50percent {
+    width: 50%;
+}
+.float-right {
+    float:right;
+}
+.inline {
+    display: inline-block;
+    vertical-align: top;
+}
+.margin5 {
+    margin: 5px;
+}
