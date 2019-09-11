@@ -1,18 +1,18 @@
 package com.tsystems.board.ejb;
 
 import com.itextpdf.text.DocumentException;
-import com.tsystems.board.ejb.dto.EventsList;
+import com.tsystems.board.ejb.dto.Event;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
-import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 /**
  * Basic implementation of the <tt>EventService</tt> interface.
@@ -40,7 +40,7 @@ public class EventServiceRestImpl implements EventService {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("Client created");
+        log.debug("Client initialized");
         client = ClientBuilder.newClient();
     }
 
@@ -51,19 +51,20 @@ public class EventServiceRestImpl implements EventService {
     }
 
     @Override
-    public EventsList getEvents() {
+    @SuppressWarnings("unchecked")
+    public List<Event> getEvents() {
         try {
             WebTarget target = client.target(REST_SERVICE_ENTRY_POINT + "events");
+            return target.request().get(List.class);
 
-            return target.request().get(EventsList.class);
-        } catch (NotAuthorizedException e) {
-            log.error("Authorization refused", e);
+        } catch (Exception e) {
+            log.error(e);
             return null;
         }
     }
 
     @Override
-    public void generatePDF(final EventsList eventList, final String path)
+    public void generatePDF(final List<Event> events, final String path)
             throws DocumentException, FileNotFoundException {
 /*
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);

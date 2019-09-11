@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:outputStylesheet name="bootstrap/bootstrap.min.css"/>
+    <h:outputStylesheet name="style.css"/>
+    <link rel="icon" href="resources/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon"/>
+</h:head>
+<h:body>
+    <ui:composition template="layout.xhtml">
+        <ui:define name="content">
+            <div class="navbar" style="background-color: #e3f2fd; border-bottom: 1px solid #aebdc8; height: 57px"><a class="navbar-brand" href="#">ECM Board</a></div>
+
+            <div class="table-post-div" style="overflow-x: auto;">
+
+                <h:form id="eventTableForm" >
+                    <h:dataTable id="eventTable" value="#{board.events}" var="event" rendered="#{board.events != null}">
+                        <h:column>
+                            <f:facet name="header">Patient</f:facet>#{event.patient}</h:column>
+                        <h:column>
+                            <f:facet name="header">Treatment</f:facet>#{event.treatment}</h:column>
+                        <h:column>
+                            <f:facet name="header">Scheduled Date</f:facet>#{event.scheduledDatetime}</h:column>
+                        <h:column>
+                            <f:facet name="header">Status</f:facet>#{event.eventStatus}</h:column>
+                        <h:column>
+                            <f:facet name="header">Cancel reason</f:facet>#{event.cancelReason}</h:column>
+                    </h:dataTable>
+                    
+                    <f:websocket channel="push">
+                        <f:ajax event="update" render="eventTable"/>
+                    </f:websocket>
+
+                    <p:poll interval="3" update="eventTableForm" listener="#{board.updateEvents}"/>
+                    <h:outputText value="No events scheduled for today" rendered="#{empty board.events}"/>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

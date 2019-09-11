@@ -1,9 +1,10 @@
 package com.tsystems.board.ejb;
 
 import com.itextpdf.text.DocumentException;
-import com.tsystems.board.ejb.dto.EventsList;
+import com.tsystems.board.ejb.dto.Event;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 /**
  * This service provides logic for generation of today's events list.
@@ -14,20 +15,21 @@ import java.io.FileNotFoundException;
 public interface EventService {
 
     /**
-     * Gets a EventsList instance containing list of events for today.
+     * Gets the list of events for today.
      *
-     * @return {@code EventsList} with a list containing events for today or empty list, if no events are scheduled for today
+     * @return {@code List} containing events for today or empty list, if no events are scheduled for today
      */
-    EventsList getEvents();
+    List<Event> getEvents();
 
     /**
      * Generates pdf file.
      *
-     * @param eventList the EventsList
-     * @param path      the path
+     * @param events the List<event
+     * @param path   the path
      * @throws DocumentException     the document exception
      * @throws FileNotFoundException the file not found exception
      */
-    void generatePDF(EventsList eventList, String path)
+    void generatePDF(List<Event> events, String path)
             throws DocumentException, FileNotFoundException;
+
 }

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * Event DTO class.
@@ -22,7 +21,7 @@ public class Event implements Serializable {
     /**
      * Scheduled date and time of the event.
      */
-    private LocalDateTime scheduledDatetime;
+    private String scheduledDatetime;
 
     /**
      * Event's status.

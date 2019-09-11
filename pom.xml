@@ -68,6 +68,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
         <!-- Import the Common Annotations API (JSR-250), we use provided scope
             as the API is included in WildFly -->
         <dependency>
@@ -77,11 +83,19 @@
         </dependency>
 
         <!-- Import the JSF API, we use provided scope as the API is included in WildFly -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
-            <artifactId>jboss-jsf-api_2.2_spec</artifactId>
+            <artifactId>jboss-jsf-api_2.3_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>-->
+
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>javax.faces-api</artifactId>
+            <version>2.3</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Import the EJB API, we use provided scope as the API is included in WildFly -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
@@ -89,11 +103,37 @@
             <scope>provided</scope>
         </dependency>
 
+<!--        <dependency>
+            <groupId>org.jboss.spec.javax.websocket</groupId>
+            <artifactId>jboss-websocket-api_1.0_spec</artifactId>
+            <version>1.0.0.Final</version>
+            <scope>provided</scope>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.jboss.ejb3</groupId>
+            <artifactId>jboss-ejb3-ext-api</artifactId>
+            <version>2.3.0.Final</version>
+        </dependency>
+
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
             <version>2.0.1</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>3.3</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+            <version>5.15.9</version>
         </dependency>
 
         <dependency>
@@ -150,8 +190,6 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE doesn't require web.xml, Maven needs to catch
-                        up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
